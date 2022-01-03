@@ -90,10 +90,9 @@ fastlane/test_output
 iOSInjectionProject/
 
 # Mac OS files
-*/.DS_Store
 .DS_Store
 
 # xCode files
-*.xcodeproj/*.pbxproj
-*.xcworkspace/*.xcworkspacedata
-*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.pbxproj
+*.xcworkspacedata
+IDEWorkspaceChecks.plist
