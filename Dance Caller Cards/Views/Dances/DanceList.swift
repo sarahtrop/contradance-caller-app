@@ -7,11 +7,38 @@
 
 import SwiftUI
 
+struct ExpandableDanceCardList : View {
+    var dances: [Dance]
+    
+    @State private var selection: Set<Dance> = []
+    
+    var body: some View {
+        List {
+            ForEach(dances) { dance in
+                DanceCard(dance: dance, isExpanded: self.selection.contains(dance))
+                    .onTapGesture {
+                        self.selectDeselect(dance)
+                    }
+                    .transition(AnyTransition.move(edge: .top))
+                    .animation(.linear, value: 0.3)
+            }
+        }
+        .listStyle(.plain)
+    }
+    
+    private func selectDeselect(_ dance: Dance) {
+        if selection.contains(dance) {
+            selection.remove(dance)
+        } else {
+            selection.insert(dance)
+        }
+    }
+}
+
 struct DanceList: View {
     var dances: [Dance]
     var title: String
-    
-    @State private var selection: Set<Dance> = []
+
     @State private var showFilterPopup: Bool = false
     
     // filtering & search
@@ -41,17 +68,7 @@ struct DanceList: View {
     var body: some View {
         NavigationView {
             VStack {
-                List {
-                    ForEach(filteredDances) { dance in
-                        DanceCard(dance: dance, isExpanded: self.selection.contains(dance))
-                            .onTapGesture {
-                                self.selectDeselect(dance)
-                            }
-                            .transition(AnyTransition.move(edge: .top))
-                            .animation(.linear, value: 0.3)
-                    }
-                }
-                .listStyle(.plain)
+                ExpandableDanceCardList(dances: filteredDances)
                 if !filterSelection.isEmpty {
                     Text("Active filters: \(filterSelection.joined(separator: ", "))")
                 }
@@ -62,32 +79,27 @@ struct DanceList: View {
             }
             .navigationBarTitle(title)
             .navigationBarItems(
-                leading:
-                    NavigationLink(destination: NewDanceForm()) {
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .foregroundColor(Color.green)
-                            .padding(.trailing, 10)
-                            .frame(width: 40, height: 30)
-                            .shadow(color: .gray, radius: 0.5)
-                    },
-                trailing:
-                    Image(systemName: "slider.horizontal.3")
-                        .resizable()
-                        .foregroundColor(Color("AccentColor"))
-                        .padding(.trailing, 10)
-                        .frame(width: 40, height: 25)
-                        .shadow(color: .gray, radius: 0.5)
-                        .onTapGesture { showFilterPopup = true })
+                leading: NavigationLink(destination: NewDanceForm()) { addIcon },
+                trailing: filterIcon.onTapGesture { showFilterPopup = true })
         }
     }
+                    
+    var addIcon: some View {
+        Image(systemName: "plus.circle")
+            .resizable()
+            .foregroundColor(Color.green)
+            .padding(.trailing, 10)
+            .frame(width: 40, height: 30)
+            .shadow(color: .gray, radius: 0.5)
+    }
     
-    private func selectDeselect(_ dance: Dance) {
-        if selection.contains(dance) {
-            selection.remove(dance)
-        } else {
-            selection.insert(dance)
-        }
+    var filterIcon: some View {
+        Image(systemName: "slider.horizontal.3")
+            .resizable()
+            .foregroundColor(Color("AccentColor"))
+            .padding(.trailing, 10)
+            .frame(width: 40, height: 25)
+            .shadow(color: .gray, radius: 0.5)
     }
 }
 

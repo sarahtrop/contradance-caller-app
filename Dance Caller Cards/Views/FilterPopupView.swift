@@ -23,6 +23,9 @@ struct FilterPopupView: View {
     @Binding var filterSelection: Set<String>
     @Environment(\.presentationMode) var presentationMode
     
+    private let sortedTags = ModelData().tags.sorted()
+    private let sortedChoreographers = ModelData().choreographers.sorted()
+    
     var tagCategories: [String] {
         return Array(Set(ModelData().tags.map({ $0.category.rawValue }))).sorted().reversed()
     }
@@ -34,7 +37,7 @@ struct FilterPopupView: View {
                     Section(header: Text("by tag")) {
                         ForEach(tagCategories, id:\.self) { category in
                             Section(header: Text("\(category)s")) {
-                                ForEach(ModelData().tags.filter({$0.category.rawValue == category})) { tag in
+                                ForEach(sortedTags.filter({$0.category.rawValue == category})) { tag in
                                     CheckView(text: tag.name, isChecked: filterSelection.contains(tag.name))
                                         .onTapGesture {
                                             self.checkUncheck(tag.name)
@@ -44,7 +47,7 @@ struct FilterPopupView: View {
                         }
                     }
                     Section(header: Text("by choreographer")) {
-                        ForEach(ModelData().choreographers, id:\.self) { choreographer in
+                        ForEach(sortedChoreographers) { choreographer in
                             CheckView(text: choreographer.name, isChecked: filterSelection.contains(choreographer.name))
                                 .onTapGesture {
                                     self.checkUncheck(choreographer.name)

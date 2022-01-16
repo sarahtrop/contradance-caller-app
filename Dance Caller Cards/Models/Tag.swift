@@ -20,7 +20,7 @@ struct Tag: Hashable, Codable {
     }
 }
 
-extension Tag: Identifiable {
+extension Tag: Identifiable, Comparable {
     var id : UUID { return UUID() }
     
     init(name: String, category: String) {
@@ -36,4 +36,9 @@ extension Tag: Identifiable {
             self.color = progressionTagColor
         }
     }
+
+    static func <(lhs: Tag, rhs: Tag) -> Bool {
+        lhs.name < rhs.name
+    }
+
 }
