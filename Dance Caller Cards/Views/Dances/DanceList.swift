@@ -52,6 +52,9 @@ struct DanceList: View {
                     }
                 }
                 .listStyle(.plain)
+                if !filterSelection.isEmpty {
+                    Text("Active filters: \(filterSelection.joined(separator: ", "))")
+                }
             }
             .searchable(text: $textSearch, placement: .navigationBarDrawer(displayMode: .always))
             .popover(isPresented: $showFilterPopup) {
