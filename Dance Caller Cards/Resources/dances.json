@@ -1,0 +1,57 @@
+[{
+	"name": "The Baby Rose",
+	"notes": "sample notes, for an easy dance",
+	"choreographer": {"name": "David Kaynor"},
+    "figures": {
+        "A1": [
+            {"figure": "neighbor balance & swing", "beats": 16}
+        ],
+        "A2": [
+            {"figure": "circle left three places", "beats": 8},
+            {"figure": "partner dosido", "beats": 8}
+        ],
+        "B1": [
+            {"figure": "partner balance & swing", "beats": 16}
+        ],
+        "B2": [
+            {"figure": "ladies chain", "beats": 8},
+            {"figure": "left hand star", "beats": 8}
+        ],
+    },
+	"tags": [
+        {"category": "formation", "name": "improper", "color": [0.573, 0.486, 0.929, 0.5]},
+        {"category": "progression", "name": "duple", "color": [0.335, 0.444, 0.848, 0.5]},
+        {"category": "figure", "name": "dosido", "color": [0.0, 0.0, 0.0, 0.0]}
+	]
+},
+{
+    "name": "Haste to the Wedding",
+    "notes": "",
+    "choreographer": {"name": "Chestnut"},
+    "figures": {
+        "A1": [
+            {"figure": "circle left", "beats": 8},
+            {"figure": "circle right", "beats": 8}
+        ],
+        "A2": [
+            {"figure": "star right", "beats": 8},
+            {"figure": "star left", "beats": 8}
+        ],
+        "B1": [
+            {"figure": "partner dosido", "beats": 8},
+            {"figure": "clap twice", "beats": 2},
+            {"figure": "partner swing", "beats": 6}
+        ],
+        "B2": [
+            {"figure": "neighbor dosido", "beats": 8},
+            {"figure": "clap twice", "beats": 2},
+            {"figure": "pass through", "beats": 6}
+        ],
+    },
+    "tags": [
+        {"category": "formation", "name": "improper", "color": [0.573, 0.486, 0.929, 0.5]},
+        {"category": "progression", "name": "duple", "color": [0.335, 0.444, 0.848, 0.5]},
+        {"category": "figure", "name": "dosido", "color": [0.0, 0.0, 0.0, 0.0]},
+        {"category": "figure", "name": "star", "color": [0.0, 0.0, 0.0, 0.0]}
+    ]
+}]
