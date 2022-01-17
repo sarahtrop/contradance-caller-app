@@ -19,9 +19,9 @@
         ],
     },
 	"tags": [
-        {"category": "formation", "name": "improper", "color": [0.573, 0.486, 0.929, 0.5]},
-        {"category": "progression", "name": "duple", "color": [0.335, 0.444, 0.848, 0.5]},
-        {"category": "figure", "name": "dosido", "color": [0.0, 0.0, 0.0, 0.0]}
+        {"category": "formation", "name": "improper", "color": "FormationTagColor"},
+        {"category": "progression", "name": "duple", "color": "ProgressionTagColor"},
+        {"category": "figure", "name": "dosido", "color": "white"}
 	]
 },
 {
@@ -49,9 +49,9 @@
         ],
     },
     "tags": [
-        {"category": "formation", "name": "improper", "color": [0.573, 0.486, 0.929, 0.5]},
-        {"category": "progression", "name": "duple", "color": [0.335, 0.444, 0.848, 0.5]},
-        {"category": "figure", "name": "dosido", "color": [0.0, 0.0, 0.0, 0.0]},
-        {"category": "figure", "name": "star", "color": [0.0, 0.0, 0.0, 0.0]}
+        {"category": "formation", "name": "improper", "color": "FormationTagColor"},
+        {"category": "progression", "name": "duple", "color": "ProgressionTagColor"},
+        {"category": "figure", "name": "dosido", "color": "white"},
+        {"category": "figure", "name": "star", "color": "white"}
     ]
 }]

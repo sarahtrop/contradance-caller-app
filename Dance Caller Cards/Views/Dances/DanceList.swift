@@ -36,8 +36,7 @@ struct ExpandableDanceCardList : View {
 }
 
 struct DanceList: View {
-    var dances: [Dance]
-    var title: String
+    var dances: [Dance] = ModelData().dances
 
     @State private var showFilterPopup: Bool = false
     
@@ -77,48 +76,12 @@ struct DanceList: View {
             .popover(isPresented: $showFilterPopup) {
                 FilterPopupView(filterSelection: $filterSelection)
             }
-            .navigationBarTitle(title)
+            .navigationBarTitle(Text("All Dances").font(.subheadline))
             .navigationBarItems(
-                leading: NavigationLink(destination: NewDanceForm()) {
-                    Image(systemName: "plus.circle")
-                        .resizable()
-                        .foregroundColor(Color.green)
-                        .padding(.trailing, 10)
-                        .frame(width: 40, height: 30)
-                        .shadow(color: .gray, radius: 0.5)
-                },
-                trailing:
-                    Image(systemName: "slider.horizontal.3")
-                        .resizable()
-                        .foregroundColor(Color("AccentColor"))
-                        .padding(.trailing, 10)
-                        .frame(width: 40, height: 25)
-                        .shadow(color: .gray, radius: 0.5).onTapGesture { showFilterPopup = true })
+                leading: NavigationLink(destination: NewDanceForm()) { AddIcon() },
+                trailing: FilterIcon().onTapGesture { showFilterPopup = true })
             .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Image(systemName: "music.note.list")
-                            Text("Dances")
-                        }
-                        .padding(.horizontal, 5)
-                        .foregroundColor(Color("AccentColor"))
-                        Divider()
-                        VStack {
-                            Image(systemName: "music.mic")
-                            Text("Programs")
-                        }
-                        .padding(.horizontal, 5)
-                        Divider()
-                        VStack {
-                            Image(systemName: "music.note.house")
-                            Text("Events")
-                        }
-                        .padding(.horizontal, 5)
-                        Spacer()
-                    }
-                }
+                Toolbar(currentView: "dances")
             }
         }
     }
@@ -126,7 +89,6 @@ struct DanceList: View {
 
 struct DanceList_Previews: PreviewProvider {
     static var previews: some View {
-        DanceList(dances: ModelData().dances,
-                  title: "All Dances")
+        DanceList()
     }
 }
