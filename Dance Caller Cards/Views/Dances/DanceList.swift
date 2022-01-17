@@ -79,27 +79,48 @@ struct DanceList: View {
             }
             .navigationBarTitle(title)
             .navigationBarItems(
-                leading: NavigationLink(destination: NewDanceForm()) { addIcon },
-                trailing: filterIcon.onTapGesture { showFilterPopup = true })
+                leading: NavigationLink(destination: NewDanceForm()) {
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .foregroundColor(Color.green)
+                        .padding(.trailing, 10)
+                        .frame(width: 40, height: 30)
+                        .shadow(color: .gray, radius: 0.5)
+                },
+                trailing:
+                    Image(systemName: "slider.horizontal.3")
+                        .resizable()
+                        .foregroundColor(Color("AccentColor"))
+                        .padding(.trailing, 10)
+                        .frame(width: 40, height: 25)
+                        .shadow(color: .gray, radius: 0.5).onTapGesture { showFilterPopup = true })
+            .toolbar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Image(systemName: "music.note.list")
+                            Text("Dances")
+                        }
+                        .padding(.horizontal, 5)
+                        .foregroundColor(Color("AccentColor"))
+                        Divider()
+                        VStack {
+                            Image(systemName: "music.mic")
+                            Text("Programs")
+                        }
+                        .padding(.horizontal, 5)
+                        Divider()
+                        VStack {
+                            Image(systemName: "music.note.house")
+                            Text("Events")
+                        }
+                        .padding(.horizontal, 5)
+                        Spacer()
+                    }
+                }
+            }
         }
-    }
-                    
-    var addIcon: some View {
-        Image(systemName: "plus.circle")
-            .resizable()
-            .foregroundColor(Color.green)
-            .padding(.trailing, 10)
-            .frame(width: 40, height: 30)
-            .shadow(color: .gray, radius: 0.5)
-    }
-    
-    var filterIcon: some View {
-        Image(systemName: "slider.horizontal.3")
-            .resizable()
-            .foregroundColor(Color("AccentColor"))
-            .padding(.trailing, 10)
-            .frame(width: 40, height: 25)
-            .shadow(color: .gray, radius: 0.5)
     }
 }
 
