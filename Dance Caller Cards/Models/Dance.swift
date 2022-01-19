@@ -8,18 +8,33 @@
 import Foundation
 import SwiftUI
 
-struct Dance: Hashable, Codable {
+class Dance: Hashable, Equatable, Codable, Identifiable, ObservableObject {
     var name: String = ""
-    var notes: String = ""
     var choreographer: Choreographer = Choreographer(name: "Chestnut") // default
-    var figures: [String: [Figure]] = ["A1": [], "A2": [], "B1": [], "B2": []]
-    
+    var figures: [Figure] = []
     var tags: [Tag] = []
+    var id : UUID { return UUID() }
+    var notes: String = ""
     
-    struct Figure: Hashable, Codable, Identifiable {
+    struct Figure: Hashable, Codable, Identifiable, Comparable {
         var figure: String
         var beats: Int
+        var part: String
+        var order: Int
         var id: UUID { return UUID() }
+        
+        static func <(lhs: Figure, rhs: Figure) -> Bool {
+            return lhs.order < rhs.order
+        }
+        
+        static func == (lhs: Figure, rhs: Figure) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
+        func beatsString(_ beatsNotation: UserSettings.BeatsNotation) -> String {
+            let stringNotation = Array(beatsNotation.rawValue)
+            return "\(stringNotation[0])\(self.beats)\(stringNotation[1])"
+        }
     }
     
     func getTagNames(_ category: String?) -> [String] {
@@ -34,8 +49,13 @@ struct Dance: Hashable, Codable {
         let allTags = self.getTagNames(nil)
         return allTags.contains(tag)
     }
-}
-
-extension Dance: Identifiable {
-    var id : UUID { return UUID() }
+    
+    static func == (lhs: Dance, rhs: Dance) -> Bool {
+        return lhs.name == rhs.name && lhs.choreographer == rhs.choreographer
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(choreographer)
+    }
 }

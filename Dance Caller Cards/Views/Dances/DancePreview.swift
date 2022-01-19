@@ -35,7 +35,7 @@ struct DancePreview: View {
                     .padding(5)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color(tag.color))
+                            .fill(tag.color)
                     )
             }
         }

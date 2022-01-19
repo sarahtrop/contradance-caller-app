@@ -12,6 +12,7 @@ final class ModelData: ObservableObject {
     var choreographers: [Choreographer] = load("choreographers.json")
     var tags: [Tag] = load("tags.json")
     var dances: [Dance] = load("dances.json")
+    var programs: [Program] = []
 }
 
 func load<T: Decodable>(_ filename: String) -> T {

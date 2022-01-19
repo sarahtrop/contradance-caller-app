@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var settings = UserSettings()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            DanceList()
+        }
+        .environmentObject(settings)
     }
 }
 

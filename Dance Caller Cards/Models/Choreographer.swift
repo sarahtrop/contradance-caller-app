@@ -8,14 +8,23 @@
 import Foundation
 import SwiftUI
 
-struct Choreographer: Hashable, Codable {
+class Choreographer: Hashable, Codable, Equatable, Identifiable, Comparable, ObservableObject {
     var name: String
-}
-
-extension Choreographer: Identifiable, Comparable {
     var id : UUID { return UUID() }
     
+    init(name: String) {
+        self.name = name
+    }
+    
     static func <(lhs: Choreographer, rhs: Choreographer) -> Bool {
-        lhs.name < rhs.name
+        return lhs.name < rhs.name
+    }
+    
+    static func == (lhs: Choreographer, rhs: Choreographer) -> Bool {
+        return lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
     }
 }

@@ -8,36 +8,44 @@
 import SwiftUI
 
 struct Toolbar: ToolbarContent {
-    var currentView: String
+    @State var danceView: Bool = false
+    @State var programView: Bool = false
+    @State var eventView: Bool = false
 
-    private var dancesColor: String { return currentView == "dances" ? "AccentColor" : "black" }
-    private var programsColor: String { return currentView == "programs" ? "AccentColor" : "black" }
-    private var eventsColor: String { return currentView == "events" ? "AccentColor" : "black" }
+    private var dancesColor: Color { return danceView ? Color("AccentColor") : Color.black }
+    private var programsColor: Color { return programView ? Color("AccentColor") : Color.black }
+    private var eventsColor: Color { return eventView ? Color("AccentColor") : Color.black }
     
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
             HStack {
                 Spacer()
-                VStack {
-                    Image(systemName: "music.note.list")
-                    Text("Dances")
+                NavigationLink(destination: DanceList(), isActive: $danceView) {
+                   VStack {
+                        Image(systemName: "music.note.list")
+                        Text("Dances")
+                    }
                 }
                 .padding(.horizontal, 5)
-                .foregroundColor(Color(dancesColor))
+                .foregroundColor(dancesColor)
                 Divider()
-                VStack {
-                    Image(systemName: "music.mic")
-                    Text("Programs")
+                NavigationLink(destination: ProgramList(), isActive: $programView) {
+                    VStack {
+                        Image(systemName: "music.mic")
+                        Text("Programs")
+                    }
                 }
                 .padding(.horizontal, 5)
-                .foregroundColor(Color(programsColor))
+                .foregroundColor(programsColor)
                 Divider()
-                VStack {
-                    Image(systemName: "music.note.house")
-                    Text("Events")
+                NavigationLink(destination: EventList(), isActive: $eventView) {
+                    VStack {
+                        Image(systemName: "music.note.house")
+                        Text("Events")
+                    }
                 }
                 .padding(.horizontal, 5)
-                .foregroundColor(Color(eventsColor))
+                .foregroundColor(eventsColor)
                 Spacer()
             }
         }

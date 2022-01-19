@@ -7,34 +7,6 @@
 
 import SwiftUI
 
-struct ExpandableDanceCardList : View {
-    var dances: [Dance]
-    
-    @State private var selection: Set<Dance> = []
-    
-    var body: some View {
-        List {
-            ForEach(dances) { dance in
-                DanceCard(dance: dance, isExpanded: self.selection.contains(dance))
-                    .onTapGesture {
-                        self.selectDeselect(dance)
-                    }
-                    .transition(AnyTransition.move(edge: .top))
-                    .animation(.linear, value: 0.3)
-            }
-        }
-        .listStyle(.plain)
-    }
-    
-    private func selectDeselect(_ dance: Dance) {
-        if selection.contains(dance) {
-            selection.remove(dance)
-        } else {
-            selection.insert(dance)
-        }
-    }
-}
-
 struct DanceList: View {
     var dances: [Dance] = ModelData().dances
 
@@ -74,14 +46,14 @@ struct DanceList: View {
             }
             .searchable(text: $textSearch, placement: .navigationBarDrawer(displayMode: .always))
             .popover(isPresented: $showFilterPopup) {
-                FilterPopupView(filterSelection: $filterSelection)
+                TagFilterPopup(filterSelection: $filterSelection)
             }
             .navigationBarTitle(Text("All Dances").font(.subheadline))
             .navigationBarItems(
                 leading: NavigationLink(destination: NewDanceForm()) { AddIcon() },
                 trailing: FilterIcon().onTapGesture { showFilterPopup = true })
             .toolbar {
-                Toolbar(currentView: "dances")
+                Toolbar(danceView: true)
             }
         }
     }

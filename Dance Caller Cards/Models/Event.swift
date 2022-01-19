@@ -8,13 +8,21 @@
 import Foundation
 import SwiftUI
 
-struct Event: Hashable, Codable {
+class Event: Identifiable, ObservableObject {
     var name: String = ""
-    var notes: String = ""
     var programs: [Int: Program]
+    var notes: String = ""
     var date: Date? = nil
-}
-
-extension Event: Identifiable {
     var id : UUID { return UUID() }
+    
+    init(name: String, programs: [Int: Program], date: Date?, notes: String?) {
+        self.name = name
+        self.notes = notes ?? ""
+        self.programs = programs
+        self.date = date ?? nil
+    }
+
+    static func == (lhs: Event, rhs: Event) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
