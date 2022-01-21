@@ -10,12 +10,12 @@ import SwiftUI
 fileprivate struct DancePart: View {
     @EnvironmentObject var settings: UserSettings
     
-    var figures: [Dance.Figure]
+    var figures: [Figure]
     
     var body: some View {
         HStack(alignment: .top) {
             if settings.showPartNames {
-                Text(figures[0].part)
+                Text(figures[0].part!)
                     .font(.subheadline)
                     .fontWeight(.bold)
                     .frame(width: 30)
@@ -34,7 +34,7 @@ fileprivate struct DancePart: View {
                 .frame(width: 30)
                 VStack(alignment: .leading) {
                     ForEach(figures) { figure in
-                        Text(figure.figure)
+                        Text(figure.figure!)
                             .padding(.bottom, 0.2)
                     }
                 }
@@ -80,11 +80,11 @@ struct DanceCard: View {
                 // include the figures of the dance, divided into the parts of the song (a, b)
                 DanceContents(dance: dance)
                 // if there are caller notes, display them
-                if !dance.notes.isEmpty {
+                if !dance.notes!.isEmpty {
                     VStack {
                         Divider()
                         HStack {
-                            Text(dance.notes)
+                            Text(dance.notes!)
                                 .font(.system(size: 14))
                                 .padding(.all, 7)
                             Spacer()
@@ -96,11 +96,11 @@ struct DanceCard: View {
     }
 }
 
-struct DanceCard_Previews: PreviewProvider {
-    static let settings = UserSettings()
-    
-    static var previews: some View {
-        DanceCard(dance: ModelData().dances[0])
-            .environmentObject(settings)
-    }
-}
+//struct DanceCard_Previews: PreviewProvider {
+//    static let settings = UserSettings()
+//
+//    static var previews: some View {
+//        DanceCard(dance: ModelData().dances[0])
+//            .environmentObject(settings)
+//    }
+//}

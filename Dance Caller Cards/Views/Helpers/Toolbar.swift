@@ -26,6 +26,7 @@ struct Toolbar: ToolbarContent {
                         Text("Dances")
                     }
                 }
+                .navigationBarBackButtonHidden(true)
                 .padding(.horizontal, 5)
                 .foregroundColor(dancesColor)
                 Divider()
@@ -35,6 +36,7 @@ struct Toolbar: ToolbarContent {
                         Text("Programs")
                     }
                 }
+                .navigationBarBackButtonHidden(true)
                 .padding(.horizontal, 5)
                 .foregroundColor(programsColor)
                 Divider()
@@ -44,6 +46,7 @@ struct Toolbar: ToolbarContent {
                         Text("Events")
                     }
                 }
+                .navigationBarBackButtonHidden(true)
                 .padding(.horizontal, 5)
                 .foregroundColor(eventsColor)
                 Spacer()

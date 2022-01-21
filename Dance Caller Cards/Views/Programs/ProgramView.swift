@@ -13,20 +13,22 @@ struct ProgramView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(program.name)
+                Text(program.name!)
                     .font(.headline)
                 Spacer()
-                Text(program.getDateString())
+                Text(program.dateString)
                     .font(.subheadline)
             }
             Divider()
-            ExpandableDanceCardList(dances: program.getDancesInOrder())
+            ExpandableDanceCardList(dances: program.dances)
         }
     }
 }
 
-struct ProgramView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProgramView(program: ModelData().programs[0])
-    }
-}
+//struct ProgramView_Previews: PreviewProvider {
+//    @Environment(\.managedObjectContext) var viewContext
+//
+//    static var previews: some View {
+//        ProgramView(program: Array(programs)[0])
+//    }
+//}

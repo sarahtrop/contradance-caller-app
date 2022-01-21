@@ -23,11 +23,15 @@ struct TagFilterPopup: View {
     @Binding var filterSelection: Set<String>
     @Environment(\.presentationMode) var presentationMode
     
-    private let sortedTags = ModelData().tags.sorted()
-    private let sortedChoreographers = ModelData().choreographers.sorted()
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    // retrieving data from the environment
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Tag.name, ascending: true)]) var tags: FetchedResults<Tag>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Choreographer.name, ascending: true)]) var choreographers: FetchedResults<Choreographer>
     
     var tagCategories: [String] {
-        return Array(Set(ModelData().tags.map({ $0.category.rawValue }))).sorted().reversed()
+        let categories = tags.map({ $0.category ?? "" })
+        return Array(Set(categories)).sorted().reversed()
     }
     
     var body: some View {
@@ -37,20 +41,20 @@ struct TagFilterPopup: View {
                     Section(header: Text("by tag")) {
                         ForEach(tagCategories, id:\.self) { category in
                             Section(header: Text("\(category)s")) {
-                                ForEach(sortedTags.filter({$0.category.rawValue == category})) { tag in
-                                    CheckView(text: tag.name, isChecked: filterSelection.contains(tag.name))
+                                ForEach(tags.filter({$0.category == category})) { tag in
+                                    CheckView(text: tag.name!, isChecked: filterSelection.contains(tag.name!))
                                         .onTapGesture {
-                                            self.checkUncheck(tag.name)
+                                            self.checkUncheck(tag.name!)
                                         }
                                 }
                             }
                         }
                     }
                     Section(header: Text("by choreographer")) {
-                        ForEach(sortedChoreographers) { choreographer in
-                            CheckView(text: choreographer.name, isChecked: filterSelection.contains(choreographer.name))
+                        ForEach(choreographers) { choreographer in
+                            CheckView(text: choreographer.name!, isChecked: filterSelection.contains(choreographer.name!))
                                 .onTapGesture {
-                                    self.checkUncheck(choreographer.name)
+                                    self.checkUncheck(choreographer.name!)
                                 }
                         }
                     }

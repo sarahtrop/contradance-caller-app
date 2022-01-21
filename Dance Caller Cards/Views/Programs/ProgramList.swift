@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct ProgramList: View {
-    var programs: [Program] = ModelData().programs
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    // retrieving data from the environment
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Program.date, ascending: true)]) var programs: FetchedResults<Program>
 
     @State private var showFilterPopup: Bool = false
     @State private var textSearch: String = ""
     
-    var filteredPrograms: [Program] {
+    var filteredPrograms: Array<Program> {
         // make a list of dances which are filtered based on tag, choreographer, or name
         // allow multiple filters
-        var filteredPrograms: [Program] = programs
+        var filteredPrograms: Array<Program> = Array(programs)
         
         // make sure for the text search we are searching tags, choreographer names, and dance names
         if !textSearch.isEmpty {
-            filteredPrograms = filteredPrograms.filter { $0.name.contains(textSearch) || $0.getDanceNames().contains(textSearch) ||
-                $0.notes.contains(textSearch)
+            filteredPrograms = filteredPrograms.filter { $0.name!.contains(textSearch) || $0.danceNames.contains(textSearch) ||
+                $0.notes!.contains(textSearch)
             }
         }
         return filteredPrograms
@@ -33,10 +36,10 @@ struct ProgramList: View {
                 ForEach(filteredPrograms) { program in
                     NavigationLink(destination: ProgramView(program: program)) {
                         HStack {
-                            Text(program.name)
+                            Text(program.name!)
                                 .font(.headline)
                             Spacer()
-                            Text(program.getDateString())
+                            Text(program.dateString)
                                 .font(.subheadline)
                         }
                     }

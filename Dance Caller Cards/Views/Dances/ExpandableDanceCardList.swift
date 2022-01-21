@@ -34,8 +34,8 @@ struct ExpandableDanceCardList : View {
     }
 }
 
-struct ExpandableDanceCardList_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpandableDanceCardList(dances: ModelData().dances)
-    }
-}
+//struct ExpandableDanceCardList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExpandableDanceCardList(dances: ModelData().dances)
+//    }
+//}
